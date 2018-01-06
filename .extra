@@ -1,7 +1,12 @@
 #!/usr/bin/env bash
 
-. "$HOME/Dropbox/.auth"
-. "$HOME/Dropbox/.work"
+if [ -f "$HOME/Dropbox/.auth" ]; then
+    . "$HOME/Dropbox/.auth"
+fi
+
+if [ -f "$HOME/Dropbox/.work" ]; then
+    . "$HOME/Dropbox/.work"
+fi
 
 # clowder
 clowder_path="$HOME/projects/clowder"
