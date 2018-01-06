@@ -78,17 +78,6 @@ echo 'Install Node packages'
 ln -snf "$(pwd)/.nvm" "$HOME/.nvm"
 nvm install node --reinstall-packages-from=node --latest-npm
 
-echo 'Customize macOS settings? (y/n)'
-read CUSTOMIZE_MACOS_SETTINGS
-if [ "$CUSTOMIZE_MACOS_SETTINGS" == 'y' ] || [ "$CUSTOMIZE_MACOS_SETTINGS" == 'yes' ]; then
-    cp 'JoePro.terminal' "$HOME/"
-    dotfiles/.macos
-    rm "$HOME/JoePro.terminal"
-    script/setCursorSize.AppleScript
-else
-    echo 'Skipping customize macOS settings'
-fi
-
 echo 'Install Homebrew casks? (y/n)'
 read INSTALL_CASKS
 if [ "$INSTALL_CASKS" == 'y' ] || [ "$INSTALL_CASKS" == 'yes' ]; then
@@ -106,4 +95,15 @@ if [ "$INSTALL_MAS_APPS" == 'y' ] || [ "$INSTALL_MAS_APPS" == 'yes' ]; then
     brew bundle --file='MAS.Brewfile'
 else
     echo 'Skipping install Mac App Store apps'
+fi
+
+echo 'Customize macOS settings? (y/n)'
+read CUSTOMIZE_MACOS_SETTINGS
+if [ "$CUSTOMIZE_MACOS_SETTINGS" == 'y' ] || [ "$CUSTOMIZE_MACOS_SETTINGS" == 'yes' ]; then
+    cp 'JoePro.terminal' "$HOME/"
+    rm "$HOME/JoePro.terminal"
+    script/setCursorSize.AppleScript
+    dotfiles/.macos
+else
+    echo 'Skipping customize macOS settings'
 fi
