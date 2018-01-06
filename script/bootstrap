@@ -1,0 +1,107 @@
+#!/usr/bin/env bash
+
+cd "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/.." || exit 1
+
+# Ask for the administrator password upfront
+sudo -v
+
+symlink_home() {
+    local filename="$1"
+    ln -snf "$(pwd)/$filename" "$HOME/$filename"
+}
+
+symlink_fork_home() {
+    local filename="$1"
+    ln -snf "$(pwd)/dotfiles/$filename" "$HOME/$filename"
+}
+
+echo 'Symlink files to home directory'
+symlink_home '.bash_profile'
+symlink_home '.extra'
+
+echo 'Symlink fork files to home directory'
+symlink_fork_home '.bashrc'
+symlink_fork_home '.curlrc'
+symlink_fork_home '.editorconfig'
+symlink_fork_home '.inputrc'
+
+echo 'Set up ssh? (y/n)'
+read SETUP_SSH
+if [ "$SETUP_SSH" == 'y' ] || [ "$SETUP_SSH" == 'yes' ]; then
+    echo 'Enter email:'
+    read GH_EMAIL
+    ssh-keygen -t rsa -b 4096 -C "$GH_EMAIL"
+    SSH_KEY=$(< ~/.ssh/id_rsa.pub)
+    echo 'Enter GitHub Username:'
+    read GH_USERNAME
+    echo 'Enter GitHub Password:'
+    read -s GH_PASSWORD
+    echo 'SSH Key Entry Title:'
+    read SSH_KEY_TITLE
+    echo 'Upload SSH Key to GitHub...'
+    curl -X 'POST' 'https://api.github.com/user/keys' \
+        -H 'Content-Type: application/json; charset=utf-8' \
+        -u "$GH_USERNAME:$GH_PASSWORD" \
+        -d $"{\"title\": \"$SSH_KEY_TITLE\", \"key\": \"$SSH_KEY\"}"
+else
+    echo 'Skipping SSH key setup'
+fi
+
+echo 'Install Hombrew if necessary'
+command -v 'brew' >/dev/null 2>&1 && eval "$(/usr/bin/ruby -e $(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install))"
+
+echo 'Run mathiasbynens/dotfiles brew.sh script'
+dotfiles/brew.sh
+
+echo 'Install additional Homebrew formulas'
+brew bundle --file='Formulas.Brewfile'
+
+# Source bash profile for access to installed commands
+. .bash_profile
+
+echo 'Set up bash-it'
+"$(pwd)/bash-it/install.sh" --no-modify-config --silent
+bash-it enable alias git osx atom clipboard general heroku homebrew-cask homebrew fuck
+bash-it enable plugin git osx alias-completion autojump gradle hub node projects
+bash-it enable completion apm awscli bash-it brew bundle defaults gem gh git gradle \
+                            hub npm nvm pip pip3 projects ssh system travis
+
+echo 'Install Python packages'
+sudo pip3 install -r requirements.txt
+
+echo 'Install Ruby gems'
+bundle install
+
+echo 'Install Node packages'
+ln -snf "$(pwd)/.nvm" "$HOME/.nvm"
+nvm install node --reinstall-packages-from=node --latest-npm
+
+echo 'Customize macOS settings? (y/n)'
+read CUSTOMIZE_MACOS_SETTINGS
+if [ "$CUSTOMIZE_MACOS_SETTINGS" == 'y' ] || [ "$CUSTOMIZE_MACOS_SETTINGS" == 'yes' ]; then
+    cp 'JoePro.terminal' "$HOME/"
+    dotfiles/.macos
+    rm "$HOME/JoePro.terminal"
+    script/setCursorSize.AppleScript
+else
+    echo 'Skipping customize macOS settings'
+fi
+
+echo 'Install Homebrew casks? (y/n)'
+read INSTALL_CASKS
+if [ "$INSTALL_CASKS" == 'y' ] || [ "$INSTALL_CASKS" == 'yes' ]; then
+    brew bundle --file='Casks.Brewfile'
+
+    echo 'Symlink Sublime Text user preferences'
+    ln -snf "$(pwd)/sublime" "$HOME/Library/Application Support/Sublime Text 3/Packages/User"
+else
+    echo 'Skipping install Homebrew casks'
+fi
+
+echo 'Install Mac App Store apps? (y/n)'
+read INSTALL_MAS_APPS
+if [ "$INSTALL_MAS_APPS" == 'y' ] || [ "$INSTALL_MAS_APPS" == 'yes' ]; then
+    brew bundle --file='MAS.Brewfile'
+else
+    echo 'Skipping install Mac App Store apps'
+fi

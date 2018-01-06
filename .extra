@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+. "$HOME/Dropbox/.auth"
+. "$HOME/Dropbox/.work"
+
+# clowder
+clowder_path="$HOME/projects/clowder"
+export PYTHONPATH="$PYTHONPATH:$clowder_path/src:$clowder_path/clowder_test:$clowder_path/test"
+command -v clowder >/dev/null 2>&1 && eval "$(register-python-argcomplete clowder)"
+command -v clowder-test >/dev/null 2>&1 && eval "$(register-python-argcomplete clowder-test)"
+
+export GROOVY_HOME='/usr/local/Cellar/groovy/2.4.12/libexec'

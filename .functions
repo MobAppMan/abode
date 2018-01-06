@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+
+decode() {
+    echo "$1" | base64 --decode; echo ''
+}
+
+screenshot-android() {
+    adb shell screencap -p | perl -pe 's/\x0D\x0A/\x0A/g' > screen.png
+}
+
+clean-derived-data() {
+    sudo rm -rf /Users/goodle/Library/Developer/Xcode/DerivedData/*
+}
+
+git_subtree_merge() {
+    PROJECT="$1"
+    BRANCH="$2"
+    CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+    if [ "$CURRENT_BRANCH" != "$BRANCH" ]; then
+        BRANCH_EXISTS=$(git rev-parse --quiet --verify "$BRANCH")
+        if [ -n "$BRANCH_EXISTS" ]; then
+            git checkout "$BRANCH" || return 1
+        else
+            git checkout -b "$BRANCH" || return 1
+        fi
+    fi
+    git merge -s recursive -Xsubtree="$PROJECT" "$PROJECT/$BRANCH"
+}
+
+git_minify() {
+    # What object SHA is associated with each file in the Repo?
+    # Git has a unique SHA that it associates with each object (such as files which it calls blobs) throughout it’s history.
+    # This helps us find that object and decide whether it’s worth deleting later on:
+    git rev-list --objects --all | sort -k 2 > allfileshas.txt
+
+    # What Unique Files Exist Throughout The History of My Git Repo?
+    # If you want to see the unique files throughout the history of your git repo (such as to grep for .jar files that you might have committed a while ago):
+    git rev-list --objects --all | sort -k 2 | cut -f 2 -d\  | uniq > unique-files.txt
+
+    # How Big Are The Files In My Repo?
+    # We can find the big files in our repo by doing a git gc which makes git compact the archive and stores an index file that we can analyse.
+    # Get the last object SHA for all committed files and sort them in biggest to smallest order:
+    git gc && git verify-pack -v .git/objects/pack/pack-*.idx | egrep "^\w+ blob\W+[0-9]+ [0-9]+ [0-9]+$" | sort -k 3 -n -r > bigobjects.txt
+
+    #Take that result and iterate through each line of it to find the SHA, file size in bytes, and real file name (you also need the allfileshas.txt output file from above):
+    for SHA in `cut -f 1 -d\  < bigobjects.txt`; do
+        echo $(grep $SHA bigobjects.txt) $(grep $SHA allfileshas.txt) | awk '{print $1,$3,$7}' >> bigtosmall.txt
+    done;
+
+    # Use filter-branch to remove the file/directory (replace MY-BIG-DIRECTORY-OR-FILE with the path that you’d like to delete relative to the root of the git repo:
+    #git filter-branch --prune-empty --index-filter 'git rm -rf --cached --ignore-unmatch MY-BIG-DIRECTORY-OR-FILE' --tag-name-filter cat -- --all
+
+    # Then clone the repo and make sure to not leave any hard links with:
+    #git clone --no-hardlinks file:///Users/yourUser/your/full/repo/path repo-clone-name
+
+    # You can use this command from the parent directory that contains your git repository and it’s clone to see how much space each of them take, and how much you’ve shrunk the repo in size:
+    #du -s *(/) # add the -h flag to see the output in human readable size formats, just like ls -lah vs ls -la
+}
+
+git_create_orphan() {
+    REPO="$1"
+    BRANCH_NAME='gh-pages'
+
+    cd "$REPO" || exit 1
+    git checkout --orphan "$BRANCH_NAME"
+    git rm -rf .
+    rm '.gitignore'
+    echo "# $BRANCH_NAME" > README.md
+    git add README.md
+    git commit -a -m "Initial Commit"
+    git push origin "$BRANCH_NAME"
+}

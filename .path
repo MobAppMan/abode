@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+# Set Homebrew path at higher precedence than default paths
+export PATH="/usr/local/bin:$PATH"
+# Set coreutils Homebrew package path
+export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
+
+# Android
+ANDROID_HOME="$HOME/android-sdk"
+export PATH="$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools:$PATH"
+
+# Add PlistBuddy path
+export PATH="/usr/libexec:$PATH"
+
+# Heroku CLI
+export PATH="/usr/local/heroku/bin:$PATH"
+
+pushd "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" > /dev/null || exit 1
+
+# Set path to dotfiles bin directory
+export PATH="$(pwd)/bin:$PATH"
+
+popd > /dev/null || exit 1

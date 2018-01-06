@@ -1,0 +1,31 @@
+{
+	"bootstrapped": true,
+	"in_process_packages":
+	[
+	],
+	"installed_packages":
+	[
+		"A File Icon",
+		"BracketHighlighter",
+		"Color Highlighter",
+		"EditorConfig",
+		"Git",
+		"GitGutter",
+		"JSON Reindent",
+		"JSONLint",
+		"MarkdownEditing",
+		"Package Control",
+		"Pretty JSON",
+		"SideBarEnhancements",
+		"SortBy",
+		"SublimeCodeIntel",
+		"SublimeEnhancedUtilitiesSet",
+		"SublimeLinter",
+		"SublimeLinter-pylint",
+		"SublimeLinter-shellcheck",
+		"SummitLinter",
+		"Swift",
+		"SwiftKitten",
+		"Theme - Soda"
+	]
+}
