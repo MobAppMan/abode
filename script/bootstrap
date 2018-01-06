@@ -47,8 +47,10 @@ else
     echo 'Skipping SSH key setup'
 fi
 
-echo 'Install Hombrew if necessary'
-command -v 'brew' >/dev/null 2>&1 && eval "$(/usr/bin/ruby -e $(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install))"
+if ! command -v brew; then
+    echo 'Install Hombrew'
+    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+fi
 
 echo 'Run mathiasbynens/dotfiles brew.sh script'
 dotfiles/brew.sh
