@@ -3,7 +3,7 @@
 ## Installation
 
 ```bash
-cd; git clone git://github.com/JrGoodle/abode.git .abode; .abode/script/bootstrap
+cd; git clone git://github.com/JrGoodle/abode.git .abode; .abode/script/clone
 ```
 
 ## Remaining macOS Settings
