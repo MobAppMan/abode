@@ -67,7 +67,6 @@ bash-it enable completion apm awscli bash-it brew bundle defaults gem gh git gra
                             hub npm nvm pip pip3 projects ssh system travis
 
 echo 'Install Python packages'
-sudo easy_install pip
 sudo pip3 install -r requirements.txt
 
 echo 'Install Ruby gems'

@@ -21,3 +21,6 @@ pushd "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" > /dev/null || exit 1
 export PATH="$(pwd)/bin:$PATH"
 
 popd > /dev/null || exit 1
+
+# Add brew Python 2 executable to path
+export PATH="/usr/local/opt/python/libexec/bin:$PATH"
