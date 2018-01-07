@@ -7,20 +7,44 @@ git diff --cached --quiet && git submodule update --init --recursive
 
 echo 'Update Homebrew formulas'
 brew update
+brew bundle --file='Formulas.Brewfile'
 brew upgrade
-brew cask upgrade
 brew cleanup
-
-echo 'Update Mac App Store apps'
-mas upgrade
 
 echo 'Update Python packages'
 sudo -H pip3 install --upgrade pip
 sudo -H pip3 install --upgrade -r 'requirements.txt'
 
 echo 'Update Ruby gems'
+bundle install
 bundle update
 gem cleanup
 
 echo 'Update Node packages'
+nvm use --delete-prefix
 nvm install node --reinstall-packages-from=node --latest-npm
+
+echo 'Update Homebrew casks? (y/n)'
+read INSTALL_CASKS
+if [ "$INSTALL_CASKS" == 'y' ] || [ "$INSTALL_CASKS" == 'yes' ]; then
+    brew bundle --file='Casks.Brewfile'
+    brew cask upgrade
+    brew cask cleanup
+
+    SUBL_USER_DIR="$HOME/Library/Application Support/Sublime Text 3/Packages/User"
+    if [ -f "$SUBL_USER_DIR" ]; then
+        echo 'Symlink Sublime Text user preferences'
+        ln -snf "$(pwd)/sublime" "$SUBL_USER_DIR"
+    fi
+else
+    echo 'Skipping update Homebrew casks'
+fi
+
+echo 'Update Mac App Store apps? (y/n)'
+read INSTALL_MAS_APPS
+if [ "$INSTALL_MAS_APPS" == 'y' ] || [ "$INSTALL_MAS_APPS" == 'yes' ]; then
+    brew bundle --file='MAS.Brewfile'
+    mas upgrade
+else
+    echo 'Skipping update Mac App Store apps'
+fi

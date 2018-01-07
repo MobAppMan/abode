@@ -2,8 +2,16 @@
 
 ## Installation
 
+To clone and run initial setup:
+
 ```bash
 cd; git clone git://github.com/JrGoodle/abode.git .abode; .abode/script/clone
+```
+
+After initial run once ssh is setup:
+
+```bash
+cd; rm -rf .abode; git clone --recursive git@github.com:JrGoodle/abode.git .abode
 ```
 
 ## Remaining macOS Settings

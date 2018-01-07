@@ -11,6 +11,3 @@ git clone git://github.com/JrGoodle/dotfiles.git
 popd
 
 .abode/script/bootstrap
-
-rm -rf .abode
-git clone --recursive git@github.com:JrGoodle/abode.git .abode
