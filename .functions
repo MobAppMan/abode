@@ -4,12 +4,12 @@ decode() {
     echo "$1" | base64 --decode; echo ''
 }
 
-screenshot-android() {
+screenshot_android() {
     adb shell screencap -p | perl -pe 's/\x0D\x0A/\x0A/g' > screen.png
 }
 
-clean-derived-data() {
-    sudo rm -rf /Users/goodle/Library/Developer/Xcode/DerivedData/*
+cleandd() {
+    sudo rm -rf $HOME/Library/Developer/Xcode/DerivedData/*
 }
 
 git_subtree_merge() {
