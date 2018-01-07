@@ -103,9 +103,8 @@ fi
 echo 'Customize macOS settings? (y/n)'
 read CUSTOMIZE_MACOS_SETTINGS
 if [ "$CUSTOMIZE_MACOS_SETTINGS" == 'y' ] || [ "$CUSTOMIZE_MACOS_SETTINGS" == 'yes' ]; then
-    cp 'JoePro.terminal' "$HOME/"
-    rm "$HOME/JoePro.terminal"
     script/setCursorSize.AppleScript
+    cp 'JoePro.terminal' "$HOME/Desktop"
     dotfiles/.macos
 else
     echo 'Skipping customize macOS settings'
