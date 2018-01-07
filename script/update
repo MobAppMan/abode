@@ -2,11 +2,8 @@
 
 cd "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/.." || exit 1
 
-
 git diff --cached --quiet && git pull
 git diff --cached --quiet && git submodule update --init --recursive
-
-script/bootstrap
 
 echo 'Update Homebrew formulas'
 brew update
