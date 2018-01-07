@@ -76,7 +76,8 @@ bundle install
 
 echo 'Install Node packages'
 ln -snf "$(pwd)/.nvm" "$HOME/.nvm"
-nvm install node --reinstall-packages-from=node --latest-npm
+nvm install
+nvm use
 
 echo 'Install Homebrew casks? (y/n)'
 read INSTALL_CASKS
