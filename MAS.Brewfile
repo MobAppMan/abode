@@ -28,6 +28,7 @@ mas 'Pocket', id: 568494494
 mas 'Profile Manager', id: 750864132
 mas 'Scapple', id: 568020055
 mas 'Screens', id: 446107677
+mas 'Server', id: 883878097
 mas 'Slack', id: 803453959
 mas 'Soulver', id: 413965349
 mas 'Speedtest', id: 1153157709
@@ -41,4 +42,5 @@ mas 'WiFi Explorer', id: 494803304
 mas 'WiFi Scanner', id: 411680127
 mas 'Xcode', id: 497799835
 mas 'xScope', id: 889428659
+mas 'Yoink', id: 457622435
 mas '1Password', id: 44398791
