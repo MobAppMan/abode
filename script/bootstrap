@@ -77,7 +77,7 @@ bundle install
 echo 'Install Node packages'
 ln -snf "$(pwd)/.nvm" "$HOME/.nvm"
 nvm install
-nvm use
+nvm use --delete-prefix
 
 echo 'Install Homebrew casks? (y/n)'
 read INSTALL_CASKS
