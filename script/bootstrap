@@ -83,8 +83,11 @@ read INSTALL_CASKS
 if [ "$INSTALL_CASKS" == 'y' ] || [ "$INSTALL_CASKS" == 'yes' ]; then
     brew bundle --file='Casks.Brewfile'
 
-    echo 'Symlink Sublime Text user preferences'
-    ln -snf "$(pwd)/sublime" "$HOME/Library/Application Support/Sublime Text 3/Packages/User"
+    SUBL_USER_DIR="$HOME/Library/Application Support/Sublime Text 3/Packages/User"
+    if [ -f "$SUBL_USER_DIR" ]; then
+        echo 'Symlink Sublime Text user preferences'
+        ln -snf "$(pwd)/sublime" "$SUBL_USER_DIR"
+    fi
 else
     echo 'Skipping install Homebrew casks'
 fi
