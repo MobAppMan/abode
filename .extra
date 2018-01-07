@@ -15,5 +15,3 @@ command -v clowder >/dev/null 2>&1 && eval "$(register-python-argcomplete clowde
 command -v clowder-test >/dev/null 2>&1 && eval "$(register-python-argcomplete clowder-test)"
 
 export PYTHONPATH="$PYTHONPATH:$HOME/projects/codecov-python"
-
-export GROOVY_HOME='/usr/local/Cellar/groovy/2.4.12/libexec'
