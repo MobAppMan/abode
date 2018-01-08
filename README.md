@@ -14,7 +14,53 @@ After initial run once ssh is setup:
 cd; rm -rf .abode; git clone --recursive git@github.com:JrGoodle/abode.git .abode
 ```
 
-## Remaining macOS Settings
+## General
+
+### Submodules
+
+- [bash-it](bash-it)
+
+- [dotfiles](dotfiles)
+
+### Scripts
+
+- [script/clone](script/clone)
+
+- [script/bootstrap](script/bootstrap)
+
+- [script/update](script/update)
+
+### Config Files
+
+- [requirements.txt](requirements.txt)
+
+- [Gemfile](Gemfile)
+
+- [.nvm/default-packages](.nvm/default-packages)
+
+- [Formulas.Brewfile](Formulas.Brewfile)
+
+- [Casks.Brewfile](Casks.Brewfile)
+
+- [MAS.Brewfile](MAS.Brewfile)
+
+### Other Files
+
+- [.bash_profile](.bash_profile)
+
+- [.bashit](.bashit)
+
+- [.extra](.extra)
+
+- [.functions](.functions)
+
+- [.liquidprompt](.liquidprompt)
+
+- [.path](.path)
+
+## Remaining Settings
+
+### macOS Settings
 
 - Dock
   - [ ] Magnification on at ~75%
@@ -31,9 +77,13 @@ cd; rm -rf .abode; git clone --recursive git@github.com:JrGoodle/abode.git .abod
 - Users and Groups
   - [ ] Disable Guest User
 
-## Casks
+### Casks
 
 - [ ] LevelHelper
 - [ ] SpriteHelper
 - [ ] LevelHelper 2
 - [ ] Abstract
+
+### iTerm 2
+
+- [ ] Save preferences and configuration
