@@ -2,25 +2,25 @@
 
 ## Installation
 
-To clone and run initial setup:
+To clone and run initial setup
 
 ```bash
 cd; git clone git://github.com/JrGoodle/abode.git .abode; .abode/script/clone
 ```
 
-Once ssh is setup:
+Once ssh is setup
 
 ```bash
 cd; rm -rf .abode; git clone --recursive git@github.com:JrGoodle/abode.git .abode
 ```
 
-## General
+## Repository Contents
 
 ### Scripts
 
 - [script/clone](script/clone)
     - Clone repo and submodules without authentication
-    - Run `bootstrip` script
+    - Run [bootstrip](script/bootstrap) script
 
 - [script/bootstrap](script/bootstrap)
     - Set up ssh for GitHub
