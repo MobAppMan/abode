@@ -18,6 +18,7 @@ symlink_fork_home() {
 echo 'Symlink files to home directory'
 symlink_home '.bash_profile'
 symlink_home '.extra'
+symlink_home '.gemrc'
 
 echo 'Symlink fork files to home directory'
 symlink_fork_home '.bashrc'
