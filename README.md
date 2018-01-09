@@ -96,6 +96,7 @@ cd; rm -rf .abode; git clone --recursive git@github.com:JrGoodle/abode.git .abod
 - Displays
   - Night Shift
     - [ ] Schedule: Sunset to Sunrise
+    - [ ] Warmth set to More Warm
 - Users and Groups
   - [ ] Disable Guest User
 
