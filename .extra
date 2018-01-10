@@ -15,3 +15,5 @@ command -v clowder >/dev/null 2>&1 && eval "$(register-python-argcomplete clowde
 command -v clowder-test >/dev/null 2>&1 && eval "$(register-python-argcomplete clowder-test)"
 
 export PYTHONPATH="$PYTHONPATH:$HOME/projects/codecov-python"
+
+alias el='exa -al --git'
