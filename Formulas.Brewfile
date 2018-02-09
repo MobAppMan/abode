@@ -3,6 +3,7 @@ tap 'mgrebenets/scan-build'
 
 brew 'autojump'
 brew 'carthage'
+brew 'cloc'
 brew 'exa'
 brew 'gradle'
 brew 'groovysdk'

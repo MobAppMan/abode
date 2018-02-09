@@ -110,3 +110,13 @@ cd; rm -rf .abode; git clone --recursive git@github.com:JrGoodle/abode.git .abod
 ### iTerm 2
 
 - [ ] Save preferences and configuration
+
+### Marked 2
+
+```bash
+CSS_DIR='~/Library/Application\ Support/Marked\ 2/Custom\ CSS'
+git clone git@github.com:ttscoff/MarkedCustomStyles.git
+cd MarkedCustomStyles
+cp *.css *.scss $CSS_DIR
+cp *.css *.scss ~/Library/Application\ Support/Marked\ 2/Custom\ CSS
+```

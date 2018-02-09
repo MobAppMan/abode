@@ -2,4 +2,4 @@
 
 # liquidprompt configuration
 [ -f /usr/local/share/liquidprompt ] && . /usr/local/share/liquidprompt
-export LP_PS1_POSTFIX="😸  "
+export LP_PS1_POSTFIX="😸 "

@@ -1,1 +1,3 @@
 app-icon
+homebridge  --unsafe-perm
+homebridge-vera
