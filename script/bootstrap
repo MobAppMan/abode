@@ -24,7 +24,7 @@ echo 'Symlink files to home directory'
 symlink_home '.bash_profile'
 symlink_home '.extra'
 symlink_home '.gemrc'
-symlink_dropbox '.homebridge'
+symlink_dropbox '.homebridge/config.json'
 
 echo 'Symlink fork files to home directory'
 symlink_fork_home '.bashrc'
