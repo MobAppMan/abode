@@ -5,6 +5,11 @@ cd "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/.." || exit 1
 # Ask for the administrator password upfront
 sudo -v
 
+symlink_dropbox() {
+    local filename="$1"
+    ln -snf "$HOME/Dropbox/$filename" "$HOME/$filename"
+}
+
 symlink_home() {
     local filename="$1"
     ln -snf "$(pwd)/$filename" "$HOME/$filename"
@@ -19,7 +24,7 @@ echo 'Symlink files to home directory'
 symlink_home '.bash_profile'
 symlink_home '.extra'
 symlink_home '.gemrc'
-symlink_home '.homebridge'
+symlink_dropbox '.homebridge'
 
 echo 'Symlink fork files to home directory'
 symlink_fork_home '.bashrc'
